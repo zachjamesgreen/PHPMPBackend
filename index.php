@@ -6,6 +6,7 @@ use Symfony\Component\Dotenv\Dotenv;
 use App\Model\Song;
 use App\Model\Album;
 use App\Model\Artist;
+use App\GetTags;
 
 require __DIR__ . '/vendor/autoload.php';
 $dotenv = new Dotenv();
@@ -94,9 +95,13 @@ $app->get('/api/search', function (Request $request, Response $response, $args) 
     return $response;
     return $response->withHeader('Content-Type', 'application/json');
 });
-// $app->get('/api/upload', function (Request $request, Response $response, $args) {
-//     return $response;
-// });
+
+$app->get('/api/upload', function (Request $request, Response $response, $args) {
+    $tags = new GetTags("/home/zach/Downloads/Flume - Flume/2-13 Zimbabwe (Flume Remix).mp3");
+    $payload = json_encode($tags->getInfo());
+    $response->getBody()->write($payload);
+    return $response;
+});
 
 
 $app->get('/', function (Request $request, Response $response, $args) {

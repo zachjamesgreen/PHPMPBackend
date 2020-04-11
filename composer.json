@@ -3,7 +3,8 @@
         "slim/slim": "^4.0",
         "slim/psr7": "^1.0",
         "php-di/php-di": "^6.1",
-        "symfony/dotenv": "^5.0"
+        "symfony/dotenv": "^5.0",
+        "james-heinrich/getid3": "1.9.19"
     },
     "autoload": {
       "psr-4": {
