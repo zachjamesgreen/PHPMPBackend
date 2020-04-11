@@ -17,7 +17,7 @@ class Connection {
       $this->host = $_ENV['DATABASE_HOST'];
       $this->user = $_ENV['DATABASE_USER'];
       $this->pass = $_ENV['DATABASE_PASS'];
-      $this->conn = new \PDO("pgsql:host=$this->host;dbname=player_development", $this->user, $this->pass);
+      $this->conn = new \PDO("pgsql:host=$this->host;dbname=player_production", $this->user, $this->pass);
   }
 
 
