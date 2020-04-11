@@ -70,7 +70,6 @@ $app->get('/api/albums/{artist_id}', function (Request $request, Response $respo
     return $response->withHeader('Content-Type', 'application/json');
 });
 $app->get('/api/artists', function (Request $request, Response $response, $args) {
-    $myPDO = new PDO('pgsql:host=localhost;dbname=player_development', 'zach', 'QmDfZx5782');
     $artists = Artist::all()->fetchAll();
     $payload = json_encode($artists);
 
@@ -86,9 +85,8 @@ $app->get('/api/artist/{id}', function (Request $request, Response $response, $a
 });
 $app->get('/api/search', function (Request $request, Response $response, $args) {
     $q = $request->getQueryParams()['q'];
-    $myPDO = new PDO('pgsql:host=localhost;dbname=player_development', 'zach', 'QmDfZx5782');
-    $artists = $myPDO->query("SELECT * from artists where name Ilike '$q%';")->fetchAll();
-    $albums = $myPDO->query("SELECT * from albums where name Ilike '$q%';")->fetchAll();
+    $artists = Artist::search($q);
+    $albums = Album::search($q);
     $songs = Song::search($q);
     $payload = json_encode(array('artists' => $artists, 'albums' => $albums, 'songs' => $songs));
 
