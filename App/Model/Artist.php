@@ -22,4 +22,14 @@ class Artist extends Model
         $db = $i->getConnection();
         return $db->query("SELECT * from artists where $field = $arg;");
     }
+
+    public static function search($arg)
+    {
+        $i = Connection::getInstance();
+        $db = $i->getConnection();
+
+        $result = $db->query("SELECT * from artists where name Ilike '$arg%';")->fetchAll();
+        if ($result == false) return [];
+        return $result;
+    }
 }

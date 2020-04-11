@@ -22,4 +22,16 @@ class Album extends Model
         $db = $i->getConnection();
         return $db->query("SELECT * from albums where $field = $arg;");
     }
+
+    public static function search($arg)
+    {
+        $i = Connection::getInstance();
+        $db = $i->getConnection();
+
+        $song = array();
+        $songs = array();
+        $result = $db->query("SELECT * FROM albums WHERE name Ilike '$arg%';")->fetchAll();
+        if ($result == false) return [];
+        return $result;
+    }
 }
