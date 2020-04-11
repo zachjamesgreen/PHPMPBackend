@@ -96,9 +96,17 @@ $app->get('/api/search', function (Request $request, Response $response, $args) 
     return $response->withHeader('Content-Type', 'application/json');
 });
 
-$app->get('/api/upload', function (Request $request, Response $response, $args) {
-    $tags = new GetTags("/home/zach/Downloads/Flume - Flume/2-13 Zimbabwe (Flume Remix).mp3");
-    $payload = json_encode($tags->getInfo());
+$app->post('/api/upload', function (Request $request, Response $response, $args) {
+    $r = [];
+    // TODO return songs to be displayed
+    // TODO use Doctrine
+    // TODO create new database without rails stuff
+    foreach ($_FILES as $f) {
+        $tags = new GetTags($f['tmp_name']);
+        $t = $tags->getInfo();
+        $a = new Artist($t->name);
+    }
+    $payload = json_encode($r);
     $response->getBody()->write($payload);
     return $response;
 });

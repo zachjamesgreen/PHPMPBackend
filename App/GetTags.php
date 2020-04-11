@@ -85,11 +85,11 @@ class GetTags
     // if genre array has more than on item make a comma sep string
     public function extractGenre($a){
         if (count($a) > 1) {
-            $string= implode(', ', $a);
+            $string = implode(', ', $a);
+            $this->genre = $string;
         } else {
             $this->genre = $this->s['tags_html']['id3v2']['genre'][0];
         }
-        $this->genre = $string;
         return $this->genre;
     }
 

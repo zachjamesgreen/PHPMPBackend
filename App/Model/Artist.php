@@ -6,6 +6,11 @@ use App\Connection;
 
 class Artist extends Model
 {
+    public $id;
+    public $name;
+    function __construct($name) {
+        $this->name = $name;
+    }
 
     public static function all()
     {
@@ -31,5 +36,13 @@ class Artist extends Model
         $result = $db->query("SELECT * from artists where name Ilike '$arg%';")->fetchAll();
         if ($result == false) return [];
         return $result;
+    }
+
+    public function create()
+    {
+        $i = Connection::getInstance();
+        $db = $i->getConnection();
+
+        $result = $db->query("INSERT INTO artist (name) VALUES ($this->name)");
     }
 }
